@@ -13,9 +13,17 @@ body {
     transform: rotate(270deg) translate(-50px, 102px);
 }
 
-.header {
-    position: relative;
-    z-index: 1000;
+header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+}
+
+#header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Hamburger design  */
@@ -36,17 +44,24 @@ body {
     background-color: #333;
 }
 
+.sidebarBtn:hover span,
+.sidebarBtn:hover span:before,
+.sidebarBtn:hover span:after {
+    background-color: red;
+}
+
+.sidebarBtn.toggle:hover span {
+    background: transparent;
+}
+
 button.sidebarBtn {
-    position: absolute;
-    right: 8px;
-    width: 60px;
-    height: 50px;
-    padding: 0px;
+    position: relative;
+    height: 40px;
+    width: 40px;
     box-sizing: border-box;
     cursor: pointer;
     background: transparent;
     border: none;
-    outline: none;
     display: block;
     z-index: 99;
 }
@@ -57,8 +72,10 @@ button.sidebarBtn {
     height: 3px;
     background: #333;
     position: absolute;
-    top: 24px;
+    top: 50%;
     transition: .3s;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .sidebarBtn span:before {
@@ -86,9 +103,6 @@ button.sidebarBtn {
 .search-bar {
     z-index: 99;
     cursor: pointer;
-    position: absolute;
-    right: 130px;
-    top: 51px;
 }
 
 /* navigation slider on hamburger click */
@@ -96,12 +110,17 @@ button.sidebarBtn {
 .logo {
     position: relative;
     z-index: 1000;
+    flex-grow: 1;
+}
+
+.logo img {
+    width: 5%;
 }
 
 #navigation {
-    position: absolute;
+    position: fixed;
     width: 100%;
-    height: 128vh;
+    height: 100vh;
     top: 0px;
     left: 0px;
     background-color: #fff;
@@ -111,14 +130,13 @@ button.sidebarBtn {
 
 .menu-container {
     display: flex;
-    padding: 115px 90px 0px 90px;
+    padding: 115px 90px 0px 40px;
 }
 
 .menu {
     flex-basis: 80%;
     border-right: 1px solid #ccc;
     padding-top: 30px;
-    padding-left: 90px;
 }
 
 .side-menu {
@@ -176,8 +194,12 @@ nav li a {
 
 .bottom-menu {
     display: flex;
-    padding-top: 80px;
     background-color: #fff;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
 }
 
 .bottom-menu div {
@@ -206,6 +228,12 @@ nav li a {
     color: #00BAFB;
 }
 
+p.address {
+    font-size: 12px;
+}
+
+/* Banner slider  */
+
 .home-slider .carousel-item {
     min-height: 90vh;
     background-position: center;
@@ -219,6 +247,15 @@ nav li a {
     transform: translate(-50%, -60%);
     text-align: center;
     color: #fff;
+}
+
+.home-slider .carousel-item {
+    filter: grayscale(1);
+}
+
+.home-slider .carousel-item:hover {
+    filter: grayscale(0);
+    transition: 1s ease;
 }
 
 .home-slider .carousel-item h1 {
@@ -282,13 +319,19 @@ p.small-text {
     font-weight: 700;
     color: #00BAFB;
     position: absolute;
-    right: 15%;
+    right: 12%;
 }
 
 .story-slider .carousel-item {
     min-height: 400px;
     background-position: center;
     background-size: cover;
+    filter: grayscale(1);
+}
+
+.story-slider .carousel-item:hover {
+    filter: grayscale(0);
+    transition: 1s;
 }
 
 .story-slider .carousel-indicators [data-bs-target] {
@@ -320,6 +363,22 @@ button.story-btn {
     font-weight: 700;
 }
 
+.story-slider .carousel-indicators button:nth-child(1).active {
+    background-color: #00BAFB;
+}
+
+.story-slider .carousel-indicators button:nth-child(2).active {
+    background-color: #00AC73;
+}
+
+.story-slider .carousel-indicators button:nth-child(3).active {
+    background-color: #FFCC00;
+}
+
+.story-slider .carousel-indicators button:nth-child(4).active {
+    background-color: #FF0021;
+}
+
 button.story-btn {
     position: absolute;
     bottom: 30px;
@@ -340,13 +399,11 @@ p.body-text {
     font-size: 18px;
 }
 
-.story-slider-area {
-    width: 90%;
-    position: absolute;
-    right: 0;
-    padding-bottom: 130px !important;
+.story-wrap {
+    padding-left: calc(50% - 500px);
+    padding-top: 70px;
+    margin-bottom: 130px;
 }
-
 
 /* Responsive  */
 
@@ -369,6 +426,10 @@ p.body-text {
 @media screen and (min-width:768px) and (max-width:1024px) {
 
     /* Hamburger navigation bar  */
+
+    .logo img {
+        width: 10%;
+    }
 
     .menu-container {
         display: flex;
@@ -418,6 +479,10 @@ p.body-text {
 
 @media screen and (min-width:481px) and (max-width:767px) {
 
+    .logo img {
+        width: 26%;
+    }    
+
     .home-slider .carousel-item h1 {
         font-size: 64px;
     }
@@ -426,13 +491,9 @@ p.body-text {
         top: 64%;
     }
 
-    .story-slider-area {
-        width: 100%;
-    }
-
-    .story-slider-area .story-area {
+    /* .story-area {
         padding: 0px 30px;
-    }
+    } */
 
     .story-slider .carousel-item {
         min-height: 400px;
@@ -514,6 +575,10 @@ p.body-text {
 
     /* Hamburger naviagtion bar  */
 
+    .logo img {
+        width: 26%;
+    }    
+
     #navigation {
         height: 108vh;
     }
@@ -552,13 +617,18 @@ p.body-text {
     .menu {
         flex-basis: 100%;
         border-right: 1px solid #ccc;
-        padding-top: 30px;
-        padding-left: 6px;
+        padding-top: 10px;
+        padding-left: 0px;
+    }
+
+    nav li {
+        padding: 5px 0px;
     }
 
     .side-menu {
-        padding-left: 6px;
-        padding-top: 5px;
+        padding-left: 0px;
+        padding-top: 0px;
+        order: 2;
     }
 
     .inner-menu {
@@ -566,23 +636,38 @@ p.body-text {
         columns: 2;
     }
 
+    .inner-menu li {
+        padding: 6px 0px;
+    }
+
     .side-menu h3 {
         font-size: 18px;
         font-weight: 800;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 25px;
+        margin-bottom: 15px;
     }
 
     .bottom-menu {
         width: 100%;
         flex-direction: column;
-        padding-top: 25px;
+        padding-top: 20px;
+        border: none;
+        position: relative;
     }
 
     .bottom-menu div {
         width: 100%;
-        height: auto;
-        padding: 15px 24px;
+        height: 38px;
+        padding: 0px;
+        border: none;
+    }
+
+    .bottom-menu div:last-child {
+        display: none;
+    }
+
+    p.address {
+        display: none;
     }
 
     /* Hero slider  */
@@ -601,17 +686,16 @@ p.body-text {
         width: 20px;
     }
 
-    .story-slider-area {
-        width: 100%;
-        padding-bottom: 60px !important
-    }
-
     .story-slider .carousel-indicators {
         bottom: -50px;
     }
 
     p.small-text {
         display: none;
+    }
+
+    .story-wrap {
+        margin-bottom: 60px;
     }
 
     .story-slider .carousel-item {
@@ -640,10 +724,7 @@ p.body-text {
 
     h2.dark-subtitle {
         font-size: 40px;
-    }
-
-    .story-slider-area .story-area {
-        padding: 0px 20px;
+        padding-left: 20px;
     }
 
     .home-slider .carousel-control-next {
